@@ -36,6 +36,15 @@ const deleteItem = (todoId) =>{
     displayTodo();
 }
 
+const doneTodo = (todoId) => {
+    const selectedTodo = todolist.findIndex((elememt) => elememt.id == todoId);
+
+    todolist[selectedTodo].isDone 
+    ? (todolist[selectedTodo].isDone = false) 
+    :  (todolist[selectedTodo].isDone = true);
+    displayTodo(); 
+}
+
 const displayTodo = () => {
     todolistElement.innerHTML = "";
   document.querySelector("#myInput").value = "";
@@ -61,12 +70,24 @@ const displayTodo = () => {
 
     doneBtn.classList.add("far");
     doneBtn.classList.add("fa-check-circle");
+    doneBtn.setAttribute("data-id", item.id);
    
 
     delBtn.addEventListener("click", function (e) {
       const delId = e.target.getAttribute("data-id");
       deleteItem(delId);
     });
+
+    if (item.isDone) {
+      listfield.classList.add("checked");
+      listfield.style.textDecoration = "line-through";
+    }
+
+    doneBtn.addEventListener("click", function (e) {
+      const selectedId = e.target.getAttribute("data-id");
+      doneTodo(selectedId);
+    });
+
     listElement.appendChild(doneBtn);
     listElement.appendChild(listfield);
     todolistElement.appendChild(listElement);
