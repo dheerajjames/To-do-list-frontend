@@ -13,7 +13,7 @@ const addTodo = () => {
     }
     else{
         const todoObject = {
-            id : uuidv4(),
+            id : todolist.length,
             todotext : todotext,
             isDone: false,
         };
@@ -31,6 +31,11 @@ myInput.addEventListener("keydown", function(e) {
 
 
 
+const deleteItem = (todoId) =>{
+    todolist.splice(todolist.findIndex((elememt)=> elememt.id == todoId),1);
+    displayTodo();
+}
+
 const displayTodo = () => {
     todolistElement.innerHTML = "";
   document.querySelector("#myInput").value = "";
@@ -43,17 +48,25 @@ const displayTodo = () => {
     const doneBtn = document.createElement("i");
     
     listfield.value = item.todotext;
+    listfield.setAttribute("data-id", item.id);
     listfield.disabled = true;
 
     delBtn.classList.add("far");
     delBtn.classList.add("fa-trash-alt");
+    delBtn.setAttribute("data-id", item.id);
+
 
     editBtn.classList.add("far");
     editBtn.classList.add("fa-edit");
 
     doneBtn.classList.add("far");
     doneBtn.classList.add("fa-check-circle");
-  
+   
+
+    delBtn.addEventListener("click", function (e) {
+      const delId = e.target.getAttribute("data-id");
+      deleteItem(delId);
+    });
     listElement.appendChild(doneBtn);
     listElement.appendChild(listfield);
     todolistElement.appendChild(listElement);
