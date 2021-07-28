@@ -5,7 +5,10 @@ const addButton = document.querySelector("#add_button");
 const myInput = document.querySelector("#myInput");
 
 
-
+// const addToLocalStorage = () => {
+//     localStorage.setItem("todolist",JSON.stringify(todolist));
+//     displayTodo();
+// }
 const addTodo = () => {
     const todotext = myInput.value;
     if (todotext == "") {
@@ -20,6 +23,7 @@ const addTodo = () => {
 
         todolist.push(todoObject);
         displayTodo();
+        // addToLocalStorage();
     }
 }
 addButton.addEventListener("click", addTodo);
@@ -29,12 +33,20 @@ myInput.addEventListener("keydown", function(e) {
     }
 });
 
+// const getFromLocalStorage = () => {
+//     const reference = localStorage.getItem("todolist");
+//     if(reference)
+//     {
+//         displayTodo();
+//     }
+// }
 
 
 const deleteItem = (todoId) =>{
     todolist.splice(todolist.findIndex((elememt)=> elememt.id == todoId),1);
     displayTodo();
 }
+// addToLocalStorage();
 
 const doneTodo = (todoId) => {
     const selectedTodo = todolist.findIndex((elememt) => elememt.id == todoId);
@@ -43,7 +55,17 @@ const doneTodo = (todoId) => {
     ? (todolist[selectedTodo].isDone = false) 
     :  (todolist[selectedTodo].isDone = true);
     displayTodo(); 
+    // addToLocalStorage();
 }
+
+// const updateTodo = (e) => {
+//   const pare=e.target.parentElement.children[1].textContent;
+//     let editedtxt = document.getElementById("task").value=pare;
+//     // console.log(x);
+//     // return x;
+
+// }
+
 
 const displayTodo = () => {
     todolistElement.innerHTML = "";
@@ -61,15 +83,17 @@ const displayTodo = () => {
     listfield.disabled = true;
 
     delBtn.classList.add("far");
-    delBtn.classList.add("fa-trash-alt");
+    delBtn.classList.add("fa-trash-alt","fa-2x");
     delBtn.setAttribute("data-id", item.id);
 
 
     editBtn.classList.add("far");
-    editBtn.classList.add("fa-edit");
+    editBtn.classList.add("fa-edit","fa-2x");
+    editBtn.setAttribute("data-id", item.id);
+
 
     doneBtn.classList.add("far");
-    doneBtn.classList.add("fa-check-circle");
+    doneBtn.classList.add("fa-check-circle","fa-2x");
     doneBtn.setAttribute("data-id", item.id);
    
 
@@ -79,7 +103,7 @@ const displayTodo = () => {
     });
 
     if (item.isDone) {
-      listfield.classList.add("checked");
+      listElement.classList.add("checked");
       listfield.style.textDecoration = "line-through";
     }
 
@@ -88,6 +112,17 @@ const displayTodo = () => {
       doneTodo(selectedId);
     });
 
+    editBtn.addEventListener("click", function (e) {
+       if(!item.isDone){
+        listfield.disabled = false;
+        // listfield.value = item.value;
+        item.todotext = listfield.value;
+         }
+       
+      });
+ 
+    //   getFromLocalStorage();
+
     listElement.appendChild(doneBtn);
     listElement.appendChild(listfield);
     todolistElement.appendChild(listElement);
@@ -95,3 +130,10 @@ const displayTodo = () => {
     listElement.appendChild(editBtn);
   });
 }
+
+
+
+
+
+
+
