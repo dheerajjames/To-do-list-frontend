@@ -1,14 +1,27 @@
 
-const todolist = [];
+let todolist = [];
 const todolistElement = document.querySelector("#myUL");
 const addButton = document.querySelector("#add_button");
 const myInput = document.querySelector("#myInput");
 
 
-// const addToLocalStorage = () => {
-//     localStorage.setItem("todolist",JSON.stringify(todolist));
-//     displayTodo();
-// }
+window.onload = function() {
+  previousArr = JSON.parse(localStorage.getItem('tasks'));
+  if(previousArr != null){
+      previousArr.forEach((item) => {
+        displayTodo();
+      });
+      todolist = [...previousArr];
+      previousArr = [];
+  }
+  displayTodo();
+  return ;
+};
+
+const setlocalStorage = () => {
+  localStorage.setItem('tasks',JSON.stringify(todolist));
+}
+
 const addTodo = () => {
     const todotext = myInput.value;
     if (todotext == "") {
@@ -22,8 +35,8 @@ const addTodo = () => {
         };
 
         todolist.push(todoObject);
+        // setlocalStorage();
         displayTodo();
-        // addToLocalStorage();
     }
 }
 addButton.addEventListener("click", addTodo);
@@ -33,38 +46,30 @@ myInput.addEventListener("keydown", function(e) {
     }
 });
 
-// const getFromLocalStorage = () => {
-//     const reference = localStorage.getItem("todolist");
-//     if(reference)
-//     {
-//         displayTodo();
-//     }
-// }
-
 
 const deleteItem = (todoId) =>{
     todolist.splice(todolist.findIndex((elememt)=> elememt.id == todoId),1);
+    setlocalStorage();
+
     displayTodo();
 }
-// addToLocalStorage();
 
 const doneTodo = (todoId) => {
     const selectedTodo = todolist.findIndex((elememt) => elememt.id == todoId);
+    setlocalStorage();
 
     todolist[selectedTodo].isDone 
     ? (todolist[selectedTodo].isDone = false) 
     :  (todolist[selectedTodo].isDone = true);
     displayTodo(); 
-    // addToLocalStorage();
 }
 
-// const updateTodo = (e) => {
-//   const pare=e.target.parentElement.children[1].textContent;
-//     let editedtxt = document.getElementById("task").value=pare;
-//     // console.log(x);
-//     // return x;
+const updateTodo = (todoId) => {
+  const selectedTodo = todolist.findIndex((elememt) => elememt.id == todoId);
+  setlocalStorage();
 
-// }
+ 
+}
 
 
 const displayTodo = () => {
@@ -113,15 +118,15 @@ const displayTodo = () => {
     });
 
     editBtn.addEventListener("click", function (e) {
+      const editId = e.target.getAttribute("data-id");
+      updateTodo(editId);
        if(!item.isDone){
-        listfield.disabled = false;
-        // listfield.value = item.value;
+        listfield.disabled = !listfield.disabled;
         item.todotext = listfield.value;
          }
        
       });
  
-    //   getFromLocalStorage();
 
     listElement.appendChild(doneBtn);
     listElement.appendChild(listfield);
@@ -129,6 +134,8 @@ const displayTodo = () => {
     listElement.appendChild(delBtn);
     listElement.appendChild(editBtn);
   });
+  setlocalStorage();
+
 }
 
 
