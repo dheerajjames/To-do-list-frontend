@@ -15,7 +15,7 @@
   text-align: center;
 }
 
-h1 {
+label {
   font-family: 'Acme', sans-serif;
   letter-spacing: 2px;
   margin-bottom: 15px;
@@ -30,8 +30,7 @@ input {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.addBtn {
-  width: 25%;
+#submit {
   padding: 10px;
   margin-left: 0;
   background: #d9d9d9;
@@ -44,12 +43,12 @@ input {
   font-weight: bold;
 }
 
-.addBtn:hover {
+#submit:hover {
   background-color: #bbb;
   color: #FFF;
 }
 
-ul li {
+li {
   cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
@@ -61,21 +60,21 @@ ul li {
   user-select: none;
 }
 
-ul li:nth-child(odd) {
+li:nth-child(odd) {
   background: #b2bec3;
 }
 
-ul li:hover {
+li:hover {
   background: #ddd;
 }
 
-ul li.checked {
+li.checked {
   background: #686868;
   color: #fff;
   text-decoration: line-through;
 }
 
-ul li.checked::before {
+li.checked::before {
   content: "";
   position: absolute;
   border-color: #fff;

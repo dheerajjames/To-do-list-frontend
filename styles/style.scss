@@ -16,7 +16,7 @@
   text-align: center;
 }
 
-h1 {
+label {
   font-family: 'Acme', sans-serif;
   letter-spacing: 2px;
   margin-bottom: 15px;;
@@ -31,8 +31,8 @@ input {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.addBtn {
-  width: 25%;
+#submit {
+  // width: 25%;
   padding: 10px;
   margin-left:0;
   background: #d9d9d9;
@@ -45,13 +45,12 @@ input {
   font-weight: bold;
 }
 
-.addBtn:hover {
+#submit:hover {
   background-color: #bbb;
   color: #FFF;
 }
 
-ul
-{ 
+
     li {
   cursor: pointer;
   position: relative;
@@ -63,31 +62,27 @@ ul
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   user-select: none;
 }
-}
-ul 
-{
+
     li:nth-child(odd) {
     background: #b2bec3;
 }
-}
 
-ul 
-{
+
+
     li:hover {
     background: #ddd;
 }
-}
 
-ul{
+
+
  li.checked {
   background: rgb(104, 104, 104);
   color: #fff;
   text-decoration: line-through;
 }
-}
 
-ul 
-{
+
+
     li.checked::before {
   content: "";
   position: absolute;
@@ -99,7 +94,7 @@ ul
   transform: rotate(45deg);
   height: 15px;
   width: 7px;
-}
+
 }
 .far {
   /* position: absolute; */
