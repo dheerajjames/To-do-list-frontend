@@ -1,0 +1,32 @@
+{
+  "name": "to-do-frontend",
+  "version": "1.0.0",
+  "description": "To do list frontend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dheerajjames/To-do-list-frontend.git"
+  },
+  "author": "Dheeraj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dheerajjames/To-do-list-frontend/issues"
+  },
+  "homepage": "https://github.com/dheerajjames/To-do-list-frontend#readme",
+  "devDependencies": {
+    "css-loader": "^6.2.0",
+    "css-minimizer-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.2.0",
+    "style-loader": "^3.2.1"
+  },
+  "dependencies": {
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.8.0"
+  }
+}

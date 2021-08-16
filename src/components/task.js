@@ -2,6 +2,9 @@ import { deleteTodo, updateTodo, doneEditTask, taskCompleted} from '../actions/d
 
 let rootDiv = document.getElementById("root");
 
+
+
+
 export const createTask = (item) => {
 const listElement = document.createElement("li");
 listElement.isEdited = false;
