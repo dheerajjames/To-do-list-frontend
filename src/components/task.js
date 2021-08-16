@@ -11,6 +11,7 @@ const editBtn = document.createElement("i");
 const doneEdit = document.createElement("i");
 const completeBtn = document.createElement("i");
 listElement.style.listStyle = "none";
+doneEdit.style.display = "none";
 
 
 
@@ -31,8 +32,8 @@ completeBtn.addEventListener('click', taskCompleted)
 if(item.isComplete)
     {
     // console.log("listfield.isComplete");
-    editBtn.disabled = true;
-    doneEdit.disabled = true;
+    editBtn.style.display = "none";
+    doneEdit.style.display = "none";
     listElement.style.backgroundColor = "grey";
     listfield.style = "text-decoration: line-through";
     }

@@ -1,7 +1,7 @@
 import { apiCall } from "../apiCalls/taskAPI.js";
 import { createTask } from "../components/task.js";
 
-const url = "http://127.0.0.1:5000/tasks";
+const url = "https://todo-list-app-backend-7.herokuapp.com/tasks";
 
 export const getTodos = async () => {
      let allTasks = await apiCall(`${url}`);
@@ -50,7 +50,9 @@ export const deleteTodo = (e) => {
 export const updateTodo = (e) => {
     const enableInput = e.target.parentElement.childNodes[1];
     enableInput.disabled = false;
-    // e.target.parentElement.childNodes[3].style.display = 'none';
+    e.target.parentElement.childNodes[3].style.display = 'none';
+    e.target.parentElement.childNodes[4].style.display = 'unset';
+
 
 }
 
@@ -77,19 +79,23 @@ export const doneEditTask = async (e) => {
      parentelem.isEdited=false;
 }
      enableInput.disabled = true;
-    //  e.target.parentElement.childNodes[3].style.display = 'unset';
+     e.target.parentElement.childNodes[3].style.display = 'unset';
+     e.target.parentElement.childNodes[4].style.display = 'none';
+
 
 }
 
 
 export const taskCompleted = async (e) => {
     const enableInput = e.target.parentElement.childNodes[1];
-    console.log(e);
+    // console.log(e);
     const editDisabled = e.target.parentElement.childNodes[3];
     const doneDisabled = e.target.parentElement.childNodes[4];
     const id = e.target.parentElement.id;
-    editDisabled.disabled = true;
-    doneDisabled.disabled = true;
+    // editDisabled.disabled = true;
+    editDisabled.style.display = 'none';
+    doneDisabled.style.display = 'none';
+    // doneDisabled.disabled = true;
     enableInput.style.textDecoration = "line-through";
     e.target.parentElement.style.backgroundColor = "grey";
     let inputValue = enableInput.value;
