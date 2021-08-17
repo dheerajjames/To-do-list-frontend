@@ -98,3 +98,15 @@ li.checked::before {
   background-color: tomato;
   color: white;
 }
+
+
+@media (max-width: 768px) {
+  input{
+    width: 50%;
+  }
+}
+@media (max-width: 575px) {
+ li{
+   padding-left: 6px;
+ }
+}

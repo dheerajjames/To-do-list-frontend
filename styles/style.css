@@ -99,3 +99,15 @@ li.checked::before {
   color: white;
 }
 /*# sourceMappingURL=style.css.map */
+
+
+@media (max-width: 768px) {
+  input{
+    width: 50%;
+  }
+}
+@media (max-width: 575px) {
+ li{
+   padding-left: 6px;
+ }
+}
