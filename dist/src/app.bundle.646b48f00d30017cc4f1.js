@@ -21,13 +21,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // const url = "https://todo-list-app-backend-7.herokuapp.com/tasks";
-const url = "http://127.0.0.1:3000/tasks";
+const url = "http://127.0.0.1:5000/tasks";
 
 
 
 const getTodos = async () => {
      let allTasks = await (0,_apiCalls_taskAPI_js__WEBPACK_IMPORTED_MODULE_0__.apiCall)(`${url}`);
-    //  console.log(allTasks);
+     console.log(allTasks);
     allTasks.forEach((item) => {
         (0,_components_task_js__WEBPACK_IMPORTED_MODULE_1__.createTask)(item);
        
@@ -37,10 +37,15 @@ const getTodos = async () => {
 
 
 const addTodo = async (event) => {
+   
     event.preventDefault();
     let taskField = document.getElementById("taskField");
     let inputValue = taskField.value;
     taskField.value = "";
+    if (!navigator.onLine) {
+        alert("you are offline!");
+        return;
+    }
     let taskObj = {
         method: 'POST',
         body: JSON.stringify({content: inputValue, 
@@ -50,18 +55,25 @@ const addTodo = async (event) => {
             "Content-Type": "application/json"
         } 
     }
-    const addTask = await (0,_apiCalls_taskAPI_js__WEBPACK_IMPORTED_MODULE_0__.apiCall)(`${url}`, taskObj);
+   
+        const addTask = await (0,_apiCalls_taskAPI_js__WEBPACK_IMPORTED_MODULE_0__.apiCall)(`${url}`, taskObj);
+        (0,_components_task_js__WEBPACK_IMPORTED_MODULE_1__.createTask)(addTask);
+  
     console.log(addTask);
-    (0,_components_task_js__WEBPACK_IMPORTED_MODULE_1__.createTask)(addTask);
 }
 
 
 const deleteTodo = (e) => {
+    if (!navigator.onLine) {
+        alert("you are offline!");
+        return;
+    }
     let taskObj = {
         method: 'DELETE'
     }
-    const id = e.target.parentElement.id;
-    console.log(id);
+   
+    const id = e.target.parentElement.taskId;
+    // console.log(id);
     const deleteTask = document.getElementById(id);
     (0,_apiCalls_taskAPI_js__WEBPACK_IMPORTED_MODULE_0__.apiCall)(`${url}/${id}`, taskObj);
     deleteTask.remove();
@@ -71,18 +83,28 @@ const deleteTodo = (e) => {
 
 
 const updateTodo = (e) => {
+    if (!navigator.onLine) {
+        alert("you are offline!");
+        return;
+    }
     const enableInput = e.target.parentElement.childNodes[1];
-    enableInput.disabled = false;
-    e.target.parentElement.childNodes[3].style.display = 'none';
-    e.target.parentElement.childNodes[4].style.display = 'unset';
-
+ 
+        enableInput.disabled = false;
+        e.target.parentElement.childNodes[3].style.display = 'none';
+        e.target.parentElement.childNodes[4].style.display = 'unset';   
+    
+    
 }
 
 
 const doneEditTask = async (e) => {
+    if (!navigator.onLine) {
+        alert("you are offline!");
+        return;
+    }
     const enableInput = e.target.parentElement.childNodes[1];
     const parentelem = e.target.parentElement;
-    const id = e.target.parentElement.id;
+    const id = e.target.parentElement.taskId;
     let inputValue = enableInput.value;
     if(parentelem.isEdited)
     {
@@ -91,7 +113,7 @@ const doneEditTask = async (e) => {
         body: JSON.stringify({content: inputValue, 
             createdAt: new Date(), 
             updatedAt: "", 
-            isComplete: false
+            iscomplete: false
         }),
         headers: {
             "Content-Type": "application/json"
@@ -129,7 +151,7 @@ const taskCompleted = async (e) => {
         body: JSON.stringify({content: inputValue, 
             createdAt: new Date(), 
             updatedAt: "", 
-            isComplete: true
+            iscomplete: true
         }),
         headers: {
             "Content-Type": "application/json"
@@ -193,7 +215,7 @@ doneEdit.style.display = "none";
 
 
 
-listElement.setAttribute("id", item.id);
+listElement.setAttribute("id", item.taskId);
 
 listfield.value = item.content;
 // listfield.setAttribute("id", "listfield");
@@ -207,7 +229,7 @@ completeBtn.classList.add("fa-check-circle","fa-2x");
 completeBtn.addEventListener('click', _actions_domOperation_js__WEBPACK_IMPORTED_MODULE_0__.taskCompleted) 
 
 
-if(item.isComplete)
+if(item.iscomplete)
     {
     // console.log("listfield.isComplete");
     editBtn.style.display = "none";

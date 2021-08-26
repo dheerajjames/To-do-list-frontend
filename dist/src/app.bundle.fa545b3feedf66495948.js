@@ -1,13 +1,98 @@
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
 
-import { apiCall } from "../apiCalls/taskAPI.js";
-import { createTask } from "../components/task.js";
+;// CONCATENATED MODULE: ./src/apiCalls/taskAPI.js
 
-const url = "https://todo-list-app-backend-7.herokuapp.com/tasks";
-// const url = "http://127.0.0.1:3000/tasks";
+const apiCall = async (url, taskObj = {}) => {
+    try{
+   const response = await fetch(url, taskObj);
+   const data = await response.json();
+   const taskData = await data.data;
+
+   return taskData;
+    }
+    catch(err){
+        console.log(err);
+    }
+  }
+
+
+;// CONCATENATED MODULE: ./src/components/task.js
+
+
+let rootDiv = document.getElementById("root");
 
 
 
-export const getTodos = async () => {
+
+const createTask = (item) => {
+const listElement = document.createElement("li");
+listElement.isEdited = false;
+const listfield = document.createElement("input");
+const delBtn = document.createElement("i");
+const editBtn = document.createElement("i");
+const doneEdit = document.createElement("i");
+const completeBtn = document.createElement("i");
+listElement.style.listStyle = "none";
+doneEdit.style.display = "none";
+
+
+console.log(item.taskId);
+listElement.setAttribute("id", item.taskId);
+
+listfield.value = item.content;
+// listfield.setAttribute("id", "listfield");
+listfield.disabled = true;
+listfield.addEventListener("change", () =>{ 
+listElement.isEdited = true;
+})
+
+completeBtn.classList.add("far");
+completeBtn.classList.add("fa-check-circle","fa-2x");
+completeBtn.addEventListener('click', taskCompleted) 
+
+
+if(item.iscomplete)
+    {
+    // console.log("listfield.isComplete");
+    editBtn.style.display = "none";
+    doneEdit.style.display = "none";
+    listElement.style.backgroundColor = "grey";
+    listfield.style = "text-decoration: line-through";
+    }
+
+
+delBtn.classList.add("far");
+delBtn.classList.add("fa-trash-alt","fa-2x");
+delBtn.addEventListener('click', deleteTodo);
+
+editBtn.classList.add("far");
+editBtn.classList.add("fa-edit","fa-2x");
+editBtn.addEventListener('click', updateTodo) 
+
+doneEdit.classList.add("far");
+doneEdit.classList.add("fa-thumbs-up","fa-2x");
+doneEdit.addEventListener('click', doneEditTask) 
+
+listElement.appendChild(completeBtn)
+listElement.appendChild(listfield);
+listElement.appendChild(delBtn);
+listElement.appendChild(editBtn);
+listElement.appendChild(doneEdit);
+rootDiv.appendChild(listElement);
+}
+;// CONCATENATED MODULE: ./src/actions/domOperation.js
+
+
+
+
+// const url = "https://todo-list-app-backend-7.herokuapp.com/tasks";
+const url = "http://127.0.0.1:3000/tasks";
+
+
+
+const getTodos = async () => {
      let allTasks = await apiCall(`${url}`);
      console.log(allTasks);
     allTasks.forEach((item) => {
@@ -18,7 +103,7 @@ export const getTodos = async () => {
 }
 
 
-export const addTodo = async (event) => {
+const addTodo = async (event) => {
    
     event.preventDefault();
     let taskField = document.getElementById("taskField");
@@ -45,7 +130,7 @@ export const addTodo = async (event) => {
 }
 
 
-export const deleteTodo = (e) => {
+const deleteTodo = (e) => {
     if (!navigator.onLine) {
         alert("you are offline!");
         return;
@@ -55,9 +140,9 @@ export const deleteTodo = (e) => {
     }
    
     const id = e.target.parentElement.id;
-    // console.log(id);
+    console.log(id);
     const deleteTask = document.getElementById(id);
-    console.log(taskObj);
+    console.log(deleteTask);
     apiCall(`${url}/${id}`, taskObj);
     deleteTask.remove();
 }
@@ -65,7 +150,7 @@ export const deleteTodo = (e) => {
 
 
 
-export const updateTodo = (e) => {
+const updateTodo = (e) => {
     if (!navigator.onLine) {
         alert("you are offline!");
         return;
@@ -80,7 +165,7 @@ export const updateTodo = (e) => {
 }
 
 
-export const doneEditTask = async (e) => {
+const doneEditTask = async (e) => {
     if (!navigator.onLine) {
         alert("you are offline!");
         return;
@@ -116,7 +201,7 @@ export const doneEditTask = async (e) => {
 }
 
 
-export const taskCompleted = async (e) => {
+const taskCompleted = async (e) => {
     const enableInput = e.target.parentElement.childNodes[1];
     // console.log(e);
     const editDisabled = e.target.parentElement.childNodes[3];
@@ -136,7 +221,7 @@ export const taskCompleted = async (e) => {
         body: JSON.stringify({content: inputValue, 
             createdAt: new Date(), 
             updatedAt: "", 
-            iscompleted: true
+            iscomplete: true
         }),
         headers: {
             "Content-Type": "application/json"
@@ -146,3 +231,25 @@ export const taskCompleted = async (e) => {
     await apiCall(`${url}/${id}`, taskObj);
 
 }
+;// CONCATENATED MODULE: ./src/app.js
+
+
+
+
+
+window.onload = function () {
+    getTodos();
+
+  };
+  window.addEventListener("offline", () => {
+    console.log("I am offline.");
+
+  });
+  
+  todo.addEventListener('submit', addTodo);
+
+
+
+
+/******/ })()
+;

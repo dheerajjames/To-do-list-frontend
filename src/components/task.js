@@ -17,8 +17,8 @@ listElement.style.listStyle = "none";
 doneEdit.style.display = "none";
 
 
-
-listElement.setAttribute("id", item.id);
+// console.log(item.taskId);
+listElement.setAttribute("id", item.taskId);
 
 listfield.value = item.content;
 // listfield.setAttribute("id", "listfield");
@@ -32,7 +32,7 @@ completeBtn.classList.add("fa-check-circle","fa-2x");
 completeBtn.addEventListener('click', taskCompleted) 
 
 
-if(item.isComplete)
+if(item.iscompleted)
     {
     // console.log("listfield.isComplete");
     editBtn.style.display = "none";
