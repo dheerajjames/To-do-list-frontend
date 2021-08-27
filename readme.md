@@ -1,6 +1,5 @@
 # To-Do-List
 
-[Live Demo](https://dheerajjames.github.io/To-do-list-frontend/dist/index.html)
 
 ## Description
 No matter who you are and what you do - you will be better organized!!!
